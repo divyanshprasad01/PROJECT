@@ -13,6 +13,8 @@ import java.util.Collections;
 @Entity
 public class Users implements UserDetails {
 
+
+
     @Id
     private int id;
     private String username;
@@ -24,6 +26,19 @@ public class Users implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         return Collections.singleton(new SimpleGrantedAuthority("USER"));
+    }
+
+    public int getId() {
+        return id;
+    }
+
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public String getRoles() {
+        return roles;
     }
 
     @Override
@@ -55,6 +70,20 @@ public class Users implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 
 
     @Override
