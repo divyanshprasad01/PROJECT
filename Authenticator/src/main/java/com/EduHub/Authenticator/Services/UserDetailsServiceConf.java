@@ -14,6 +14,9 @@ public class UserDetailsServiceConf implements UserDetailsService {
     @Autowired
     private UsersRepo repo;
 
+
+//We needed to implement this loadbyUsername method of UserDetailsService interface so that it can fetch the user with the help of
+//    spring data jpa and return a user object to it.
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users users = repo.findByUsername(username);

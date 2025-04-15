@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
+//A rest controller for sign up page...currently there is no page but working fine when testing in POSTMAN...
 @RestController
 public class SignUp {
 

@@ -5,10 +5,11 @@ import jakarta.persistence.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-
 import java.util.Collection;
 import java.util.Collections;
+
+//This is a user object with all the getters and setters and it  implements Userdetails interface of spring security
+//and implements the methods of the userDetails interface this was a requirement of userDetailsService.
 
 @Entity
 public class Users implements UserDetails {
