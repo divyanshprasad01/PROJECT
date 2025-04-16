@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -32,20 +31,26 @@ public class SecurityConfigrations {
 //                This disables cross site request forgery filter...it must be implemented it is a security issue
 //                just disabled it for now will implement later...
                 .csrf(customizer -> customizer.disable())
-//                this method authorizez http rquests if user is accessing signup or login page then it will not ask for authentication
+//                this method authorizes http requests if user is accessing signup or login page then it will not ask for authentication
 //                for any other request user must be authenticated...
                 .authorizeHttpRequests(request -> request
-                                                                            .requestMatchers("/signup", "/login")
+                                                                            .requestMatchers("/signup", "/custom-login")
                                                                             .permitAll()
                                                                             .anyRequest().authenticated())
 //               It sets the authentication method to default basic username password authentication which is provided by spring security...
                 .httpBasic(Customizer.withDefaults())
-//                It provides a basic form UI provided by spring security to type in username and password...
-                .formLogin(Customizer.withDefaults())
+//                It provides a basic form UI template stored in /resources/templates with the help of thymeleaf...
+                .formLogin(login -> login.loginPage("/custom-login")
+//                        It's the actual login processing url which the page hits when submit button is clicked..
+                        .loginProcessingUrl("/login")
+//                        Redirect to this for successful login...
+                        .defaultSuccessUrl("/home",true)
+//                        Redirect to this if failed...
+                        .failureForwardUrl("/login?error=true").permitAll())
 //                This method sets the session to a stateless so that it will not remember the user and ask everytime for authentication
 //                if user closes the application or breaks the session...
                 .sessionManagement(session -> session
-                                                                            .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                                                            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
 //              It will build the default security filter chain with provided additional configurations...
                 .build();
     }
