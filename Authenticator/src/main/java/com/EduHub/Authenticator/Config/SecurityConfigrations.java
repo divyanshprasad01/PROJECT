@@ -39,14 +39,8 @@ public class SecurityConfigrations {
                                                                             .anyRequest().authenticated())
 //               It sets the authentication method to default basic username password authentication which is provided by spring security...
                 .httpBasic(Customizer.withDefaults())
-//                It provides a basic form UI template stored in /resources/templates with the help of thymeleaf...
-                .formLogin(login -> login.loginPage("/custom-login")
-//                        It's the actual login processing url which the page hits when submit button is clicked..
-                        .loginProcessingUrl("/login")
-//                        Redirect to this for successful login...
-                        .defaultSuccessUrl("/home",true)
-//                        Redirect to this if failed...
-                        .failureForwardUrl("/login?error=true").permitAll())
+                .formLogin(Customizer.withDefaults())
+
 //                This method sets the session to a stateless so that it will not remember the user and ask everytime for authentication
 //                if user closes the application or breaks the session...
                 .sessionManagement(session -> session
@@ -54,7 +48,6 @@ public class SecurityConfigrations {
 //              It will build the default security filter chain with provided additional configurations...
                 .build();
     }
-
 
 //  To connect our database with our spring security we need to implement this method provided in spring security
 //    and return it and object of DAO type of provider so that it will go to our service to search user in our database.
@@ -68,26 +61,5 @@ public class SecurityConfigrations {
         return provider;
     }
 
-
-    //For testing a starter code without database....
-//    @Bean
-//    public UserDetailsServiceConf userDetailsService(){
-//        UserDetails user1 = Users
-//                .withDefaultPasswordEncoder()
-//                .username("admin")
-//                .password("admin@123")
-//                .roles("ADMIN")
-//                .build();
-//
-//        UserDetails user2 = Users
-//                .withDefaultPasswordEncoder()
-//                .username("admin2")
-//                .password("admin2@123")
-//                .roles("ADMIN")
-//                .build();
-//
-//
-//        return userDetailsService;
-//    }
 
 }
