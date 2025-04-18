@@ -13,11 +13,14 @@ public class UserLoginService {
     @Autowired
     AuthenticationManager authenticationManager;
 
-    public boolean authenticateUser(Users user) {
+    @Autowired
+    JwtService jwtService;
+
+    public String authenticateUser(Users user) {
         Authentication auth =
                 authenticationManager
                         .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
-        return auth.isAuthenticated();
+        return (auth.isAuthenticated())? jwtService.generateNewToken(user) :"failed";
     }
 }

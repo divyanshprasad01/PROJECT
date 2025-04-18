@@ -1,5 +1,6 @@
 package com.EduHub.Authenticator.Config;
 
+import com.EduHub.Authenticator.SecurityFilters.JwtFilter;
 import com.EduHub.Authenticator.Services.UserDetailsServiceConf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 //A class to implement security configurations instead of using the default one provided by spring security...
@@ -23,6 +25,9 @@ public class SecurityConfigrations {
 
     @Autowired
     private UserDetailsServiceConf userDetailsService;
+
+    @Autowired
+    private JwtFilter jwtFilter;
 
 //   Here defining filter chain of the spring security so that it can use those filters to authenticate and reject users...
     @Bean
@@ -41,6 +46,7 @@ public class SecurityConfigrations {
                                                                             .anyRequest().authenticated())
 //               It sets the authentication method to default basic username password authentication which is provided by spring security...
                 .httpBasic(Customizer.withDefaults())
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 
 //                This method sets the session to a Always so that it will remember the user and ask everytime for authentication
 //                if user closes the application or breaks the session...

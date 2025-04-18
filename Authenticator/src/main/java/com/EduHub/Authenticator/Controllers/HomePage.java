@@ -21,8 +21,7 @@ public class HomePage {
 
     @PostMapping("login")
     public String login(@RequestBody Users user) {
-        boolean successOrNot = userLoginService.authenticateUser(user);
-        return (successOrNot) ? "Login Successful!!!!" : "Login Failed";
+        return userLoginService.authenticateUser(user);
     }
 
 //    Just for testing the signup service this is to get the body of user in json format.
