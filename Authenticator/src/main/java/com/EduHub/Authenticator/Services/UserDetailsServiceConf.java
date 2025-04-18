@@ -1,6 +1,5 @@
 package com.EduHub.Authenticator.Services;
 
-import com.EduHub.Authenticator.Models.Users;
 import com.EduHub.Authenticator.Repos.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,10 +18,6 @@ public class UserDetailsServiceConf implements UserDetailsService {
 //    spring data jpa and return a user object to it.
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users users = repo.findByUsername(username);
-        if(users == null){
-            System.out.println("users not found!!");
-        }
-        return  users;
+        return repo.findByUsername(username);
     }
 }

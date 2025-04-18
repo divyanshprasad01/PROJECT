@@ -4,9 +4,11 @@ import com.EduHub.Authenticator.Services.UserDetailsServiceConf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -34,14 +36,13 @@ public class SecurityConfigrations {
 //                this method authorizes http requests if user is accessing signup or login page then it will not ask for authentication
 //                for any other request user must be authenticated...
                 .authorizeHttpRequests(request -> request
-                                                                            .requestMatchers("/signup", "/custom-login")
+                                                                            .requestMatchers("signup","login")
                                                                             .permitAll()
                                                                             .anyRequest().authenticated())
 //               It sets the authentication method to default basic username password authentication which is provided by spring security...
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
 
-//                This method sets the session to a stateless so that it will not remember the user and ask everytime for authentication
+//                This method sets the session to a Always so that it will remember the user and ask everytime for authentication
 //                if user closes the application or breaks the session...
                 .sessionManagement(session -> session
                                                                             .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
@@ -59,6 +60,11 @@ public class SecurityConfigrations {
 //      It sets our created class which implements userDetailsService interface to fetch the user from database using username..
         provider.setUserDetailsService(userDetailsService);
         return provider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 
 
