@@ -46,6 +46,8 @@ public class SecurityConfigrations {
                                                                             .anyRequest().authenticated())
 //               It sets the authentication method to default basic username password authentication which is provided by spring security...
                 .httpBasic(Customizer.withDefaults())
+//                Adds Json Web Token Authentication Filter before username password authentication filter so that if user,
+//                sends a json web token they will get authenticated with token and chain will not ask for username password..
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 
 //                This method sets the session to a Always so that it will remember the user and ask everytime for authentication
@@ -68,6 +70,8 @@ public class SecurityConfigrations {
         return provider;
     }
 
+
+//  It gets a bean of authentication manager so that we can configure it wherever we like, genrally used for jwtoken and Oauth.
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();

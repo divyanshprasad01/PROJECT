@@ -19,6 +19,8 @@ public class HomePage {
         return "Hello World!!";
     }
 
+//    login endpoint where user sends his username and password to login and gets a web token in return.
+//    Users should only hit this endpoint when json Web token is expired or not issued in the first place.
     @PostMapping("login")
     public String login(@RequestBody Users user) {
         return userLoginService.authenticateUser(user);

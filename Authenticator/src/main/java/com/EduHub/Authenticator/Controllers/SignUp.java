@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 //A rest controller for sign up page...currently there is no page but working fine when testing in POSTMAN...
 @RestController
 public class SignUp {
-
     @Autowired
     private SignUpService signUpService;
 
+//  An endpoint where user can register themselves..
     @PostMapping("/signup")
     public Users signUp(@RequestBody Users users){
         return signUpService.signUpAndSave(users);

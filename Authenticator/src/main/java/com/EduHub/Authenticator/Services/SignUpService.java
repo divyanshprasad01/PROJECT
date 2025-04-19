@@ -13,7 +13,7 @@ public class SignUpService {
     @Autowired
     private UsersRepo repo;
 
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     public Users signUpAndSave(Users users){
 //      it changes plane password and encodes it with BcryptPasswordEncoder with the strength of 12...

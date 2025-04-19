@@ -8,6 +8,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+//This is a user login service here it takes username and password to authenticate user,
+//users only hit this service when json web token is expired or not available in the first place.
 @Service
 public class UserLoginService {
     @Autowired
@@ -16,6 +18,9 @@ public class UserLoginService {
     @Autowired
     JwtService jwtService;
 
+//   It authenticates the user with username and password with the help of authentication manager and
+//   then generates a new token if user is authenticated
+//   and returns it to user and if not it shows faild.
     public String authenticateUser(Users user) {
         Authentication auth =
                 authenticationManager
