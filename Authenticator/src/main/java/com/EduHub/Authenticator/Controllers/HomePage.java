@@ -26,6 +26,14 @@ public class HomePage {
         return userLoginService.authenticateUser(user);
     }
 
+
+//    Endpoint for Oauth Google Client....
+    @PostMapping("loginWithGoogle")
+    public String loginWithGoogle(@RequestParam String string){
+
+        return null;
+    }
+
 //    Just for testing the signup service this is to get the body of user in json format.
     @GetMapping("/format")
     public String format(Users users) {
